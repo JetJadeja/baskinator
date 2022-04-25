@@ -5,10 +5,11 @@ from collections import deque
 
 def main():
     codec = Codec()
-    tokens = codec.txtToTokens("postorder.txt")
+    tokens = codec.txtToTokens("testPost.txt")
     print("Main Ran");
     print(tokens)
     print(codec.deserialize(tokens))
+    codec.updateTxt("testPost.txt", tokens)
 
 class TreeNode:
   def __init__(self, value, left, right):
@@ -24,30 +25,34 @@ class TreeNode:
 
 
 class Codec:
+ def updateTxt(self, fileName:str, data):
+   file = open(os.getcwd() + "/" + fileName, "w")
+   for i in data:
+     file.write(i);
+   return
+ def txtToTokens(self, fileName: str):
+         file = open(os.getcwd() + "/" + fileName, "r")
+         out = []
+         data = file.read().splitlines()
+         for line in data:
+           for c in line.split('|'):
+             if not c.isspace():
+               out.append(c)
+         file.close()
+         return out;
+ def deserialize(self, data):
+   stk = []
+   for i in data:
+     if i.startswith("?"):
+       stk.append(TreeNode(i, stk.pop(), stk.pop()))
+     else:
+       stk.append(TreeNode(i, None, None))
+   return stk.pop()
 
-    def txtToTokens(fileName: str):
-            file = open(os.getcwd() + "/" + fileName, "r")
-            out = []
-            data = file.read().splitlines()
-            for line in data:
-              for c in line.split('|'):
-                if not c.isspace():
-                  out.append(c)
-            file.close()
-            return out;
-    def deserialize(self, data):
-      stk = []
-      for i in data:
-        if i.startswith("?"):
-          stk.append(TreeNode(i, stk.pop(), stk.pop()))
-        else:
-          stk.append(TreeNode(i, None, None))
-      return stk.pop()
-
-    def serialize(self, root):
-        res = []
-        if root:
-            res = self.serialize(root.left)
-            res = res + self.serialize(root.right)
-            res.append(root.data)
-        return res
+ def serialize(self, root):
+     res = []
+     if root:
+         res = self.serialize(root.left)
+         res = res + self.serialize(root.right)
+         res.append("|" + root.data)
+     return res
