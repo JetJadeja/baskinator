@@ -60,6 +60,23 @@ def display(root: str):
     else:
         os.system('cls' if os.name == 'nt' else 'clear')
         print(text2art(f"Your  player  is  {node.data}", font='big'))
+        
+        questions = [
+            inquirer.List(
+                "answer",
+                message="Was I right?",
+                choices=["Yes", "No"],
+            ),
+        ]
+
+        if inquirer.prompt(questions)["answer"] == "No":
+            os.system('cls' if os.name == 'nt' else 'clear')
+            new_name = input("Enter the name of your player: ")
+
+            players_to_add = open(f"{os.getcwd()}/src/data/players-to-add.txt", 'a')
+            players_to_add.write(f"{new_name}\n")
+            players_to_add.close()
+        
 
 if __name__ == "__main__":
     display(root)
