@@ -1,9 +1,7 @@
 import pickle
-from setup import get_tree, preorder
 import os
 
 filename = f"{os.getcwd()}/src/data/info.txt"
-tree = get_tree()
 
 def save_model(model):
     outfile = open(filename,'wb')
@@ -17,4 +15,3 @@ def retrieve_model():
 
     return model
 
-save_model(tree)

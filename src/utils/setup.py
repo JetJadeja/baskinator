@@ -1,7 +1,7 @@
-from tree import DecisionTree
+from utils.tree import DecisionTree
 import os
 
-file = open(f"{os.getcwd()}/src/data/data.txt", "r")
+file = open(f"{os.getcwd()}/src/data/csv_data.txt", "r")
 nodes = file.read().split("\n")
 
 question_to_nodes = {}
