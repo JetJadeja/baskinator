@@ -1,12 +1,18 @@
 from utils.tree import DecisionTree
 import os
 
+# TODO: This file should be moved to a parameter of the function get_tree()
 file = open(f"{os.getcwd()}/src/data/csv_data.txt", "r")
 nodes = file.read().split("\n")
 
 question_to_nodes = {}
 
 def get_tree():
+    # TODO: Note on opening files in python: it is considered good practice to use
+    #  a with context block: https://peps.python.org/pep-0343/ 
+    #  for example: 
+    #  with open(fname) as f: 
+    #    # what to do with f... 
     root = None
 
     for node in nodes:
