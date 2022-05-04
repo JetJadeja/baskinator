@@ -1,4 +1,3 @@
-from utils.tree import DecisionTree
 from tree import DecisionTree
 import os
 
@@ -9,8 +8,6 @@ question_to_nodes = {}
 
 def write_tree(root):
     csv_data = "\n".join(create_csv_array(root, None, None, is_root=True))
-
-    print(csv_data)
 
     file.write(csv_data)
     file.close()
